@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MedCheck</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+</head>
+<body>
+<!-- =====================================================
+     NAVIGATION
+     ===================================================== -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="#home" class="logo">
+        <img src="{{ url_for('static', filename='assets/logo.png') }}" alt="Logo">
+      </a>
+
+      
+
+      <ul class="nav-menu">
+        <li class="nav-item">
+          <a href="#home" class="nav-link active">Home</a>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a href="#footer" class="nav-link">
+            About
+          </a>
+    
+        </li>
+
+        <li class="nav-item dropdown">
+          <a href="#medicine-search-form" class="nav-link">
+           Check Now
+          </a>
+          
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+<!-- =====================================================
+       HERO
+       ===================================================== -->
+  <section class="hero" id="home">
+
+    <!-- Optional background video -->
+    <video class="hero-video" autoplay muted loop playsinline>
+      <source src="{{ url_for('static', filename='assets/hero-video.mp4') }}" type="video/mp4">
+    </video>
+
+    <div class="hero-overlay">
+      <div class="container hero-container">
+
+        <div class="hero-content">
+          <h1>
+            MedCheck<br>
+            <span class="mun-title"></span>
+          </h1>
+
+          <p class="tagline">
+            Check the authenticity of your medicines with ease and confidence.
+          </p>
+
+          <img
+            src="{{ url_for('static', filename='assets/logo_textless.png') }}"
+            alt="Logo"
+            class="mobile-logo-image"
+          >
+
+          <div class="hero-buttons">
+            <a href="#medicine-search-form" class="btn btn-primary">Check Now</a>
+          </div>
+        </div>
+
+        <div class="globe-container">
+          <img src="{{ url_for('static', filename='assets/logo_textless.png') }}" alt="Main Logo">
+        </div>
+
+      </div>
+    </div>
+
+    <div class="scroll-down">
+      <div class="mouse"><div class="wheel"></div></div>
+      <div class="arrow"></div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+  DISCLAIMER SECTION
+     ===================================================== -->
+
+  <section class="welcome-section" id="about">
+  <div class="container">
+
+    <h2>Medicine Authenticity Check</h2>
+
+    <div class="welcome-card">
+      <div class="welcome-card-content">
+
+        <div class="welcome-text">
+          <p class="quote">
+            If the details on your medicine match all the details shown on a medicine card—including the medicine name, manufacturer, active ingredient, medicine type, strength, quantity, and other available identifying information—the medicine is consistent with an authentic record in our database.
+          </p>
+
+          <p>
+            If your medicine does not match any available medicine card, be cautious. This does not necessarily mean the medicine is counterfeit, as the product may be missing from our database or the information may have changed.
+          </p>
+
+          <p>
+            In case of no match, verify the medicine using official manufacturer information, packaging details, batch/lot numbers, expiry dates, authorized pharmacies, or other trusted sources.
+          </p>
+
+          <p>
+            <b>Important:</b> A database match alone cannot guarantee that a physical medicine is genuine. Always verify the product through appropriate official or professional sources when authenticity is in doubt.
+          </p>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+  <!-- =====================================================
+  WORKING SECTION
+     ===================================================== -->
+
+    <!-- Medicine Search Form -->
+    <form id="medicine-search-form">
+
+      <div class="search-type">
+        <label>
+            <input type="radio" name="search-type" value="active" checked>
+            Active Ingredient
+        </label>
+
+        <label>
+            <input type="radio" name="search-type" value="name">
+            Medicine Name
+        </label>
+      </div>
+
+      <input
+          type="text"
+          id="medicine-search"
+          name="medicine"
+          placeholder="Enter details of the medicine"
+          required>
+
+      <button type="submit">
+          Search
+      </button>
+
+    </form>
+
+    <div class="search-warning">
+        Make sure you are entering the exact medicine
+        name or active ingredient.
+    </div>
+    
+    
+    <div class="medicine-card-grid" id="primary">
+
+    </div>
+
+    <script
+        src="{{ url_for('static', filename='script.js') }}">
+    </script>
+
+
+<!-- =====================================================
+     FOOTER
+     ===================================================== -->
+
+<footer class="footer" id="footer">
+  <div class="container">
+
+    <div class="footer-content">
+
+      <div class="footer-about">
+        <h3>ABOUT</h3>
+        <p>
+          Check the authenticity of your medicines with ease and confidence.
+        </p>
+      </div>
+
+      <div class="footer-links">
+        <h3>QUICK LINKS</h3>
+
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#footer">About</a></li>
+          <li><a href="/#medicine-search-form">Check</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <p>
+        &copy; 2026 MedCheck. All Rights Reserved.
+      </p>
+    </div>
+
+  </div>
+</footer>
+
+<!-- Back to top -->
+
+<a href="#home" class="back-to-top" aria-label="Back to top">
+  <i class="fas fa-arrow-up"></i>
+</a>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const backToTop =
+      document.querySelector('.back-to-top');
+    if (backToTop) {
+      window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 300) {
+          backToTop.classList.add('visible');
+        } else {
+          backToTop.classList.remove('visible');
+        }
+      });
+    }
+  });
+</script>
+
+</body>
+</html>
