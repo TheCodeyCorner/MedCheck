@@ -1,8 +1,13 @@
 <!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MedCheck</title>
+  
+  <!-- Tesseract.js Engine for Lens Scanner -->
+  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+
   <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
   <link
       rel="stylesheet"
@@ -19,8 +24,6 @@
         <img src="{{ url_for('static', filename='assets/logo.png') }}" alt="Logo">
       </a>
 
-      
-
       <ul class="nav-menu">
         <li class="nav-item">
           <a href="#home" class="nav-link active">Home</a>
@@ -30,22 +33,20 @@
           <a href="#footer" class="nav-link">
             About
           </a>
-    
         </li>
 
         <li class="nav-item dropdown">
           <a href="#medicine-search-form" class="nav-link">
            Check Now
           </a>
-          
         </li>
       </ul>
     </div>
   </nav>
 
 <!-- =====================================================
-       HERO
-       ===================================================== -->
+        HERO
+        ===================================================== -->
   <section class="hero" id="home">
 
     <!-- Optional background video -->
@@ -133,36 +134,68 @@
     <!-- Medicine Search Form -->
     <form id="medicine-search-form">
 
-      <div class="search-type">
-        <label>
-            <input type="radio" name="search-type" value="active" checked>
-            Active Ingredient
+      <!-- Segmented Radio Toggle Switch -->
+      <div class="search-type-segmented">
+        <label class="toggle-option">
+          <input type="radio" name="search-type" value="active" checked>
+          <span>Active Ingredient</span>
         </label>
-
-        <label>
-            <input type="radio" name="search-type" value="name">
-            Medicine Name
+        <label class="toggle-option">
+          <input type="radio" name="search-type" value="name">
+          <span>Medicine Name</span>
         </label>
       </div>
 
-      <input
+      <!-- Unified Modern Search Input Bar -->
+      <div class="search-bar-pill">
+        <i class="fas fa-search search-icon"></i>
+
+        <input
           type="text"
           id="medicine-search"
           name="medicine"
           placeholder="Enter details of the medicine"
-          required>
+          required
+          autocomplete="off">
 
-      <button type="submit">
+        <!-- Embedded Lens Camera Button -->
+        <button id="openLensBtn" type="button" class="lens-inline-btn" title="Scan packaging with camera">
+          <i class="fas fa-camera"></i>
+          <span>Lens</span>
+        </button>
+
+        <!-- Submit Button -->
+        <button type="submit" class="submit-btn">
           Search
-      </button>
+        </button>
+      </div>
 
     </form>
 
-    <div class="search-warning">
-        Make sure you are entering the exact medicine
-        name or active ingredient.
+    <!-- LENS SCANNER CAMERA MODAL -->
+    <div id="lensModal">
+        <div>
+            <div style="background: var(--primary-color); color: white; padding: 12px; font-size: 15px; font-weight: 600;">
+                Position the medicine name inside the green box
+            </div>
+
+            <video id="lensVideo" autoplay playsinline style="width: 100%; height: 300px; object-fit: cover;"></video>
+            <canvas id="lensCanvas" style="display: none;"></canvas>
+            
+            <div style="position: absolute; top: 70px; left: 30px; right: 30px; bottom: 80px; border: 2px dashed #00ff88; border-radius: 8px; pointer-events: none; display: flex; align-items: center; justify-content: center;">
+                <span style="background: rgba(0,0,0,0.75); color: #fff; font-size: 12px; padding: 4px 8px; border-radius: 4px;">Align Text Here</span>
+            </div>
+
+            <div style="padding: 12px; background: #222; display: flex; justify-content: space-between;">
+                <button id="closeLensBtn" type="button" style="padding: 8px 16px; background: #555; color: white; border: none; border-radius: 6px; cursor: pointer;">Cancel</button>
+                <button id="captureLensBtn" type="button" style="padding: 8px 16px; background: #00b4d8; color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer;">Scan Text</button>
+            </div>
+        </div>
     </div>
-    
+
+    <div class="search-warning">
+        Make sure you are entering the exact medicine name or active ingredient.
+    </div>
     
     <div class="medicine-card-grid" id="primary">
 

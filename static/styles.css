@@ -30,7 +30,6 @@ html {
   }
 }
 
-
 body {
   font-family: "Poppins", sans-serif;
   color: var(--text-color);
@@ -289,44 +288,168 @@ a {
 
 
 /* =========================================================
-   SEARCH
+   SEARCH SECTION & SEGMENTED TOGGLE
    ========================================================= */
 
 #medicine-search-form {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 8px;
-  width: min(92%, 800px);
-  margin: 30px auto;
-  background: #fff;
-  border: 1px solid #e5e7eb;
-  border-radius: 16px;
-  padding: 8px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+  gap: 16px;
+  width: min(92%, 720px);
+  margin: 35px auto 10px;
+}
+
+/* 1. Segmented Control Switch */
+.search-type-segmented {
+  display: inline-flex;
+  background: #f1f5f9;
+  padding: 4px;
+  border-radius: 99px;
+  border: 1px solid #e2e8f0;
+}
+
+.search-type-segmented .toggle-option {
+  position: relative;
+  cursor: pointer;
+}
+
+.search-type-segmented .toggle-option input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.search-type-segmented .toggle-option span {
+  display: inline-block;
+  padding: 8px 20px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #64748b;
+  border-radius: 99px;
+  transition: all 0.25s ease;
+  user-select: none;
+}
+
+.search-type-segmented .toggle-option input[type="radio"]:checked + span {
+  background: #ffffff;
+  color: var(--primary-color);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+/* 2. Unified Search Bar Wrapper */
+.search-bar-pill {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 99px;
+  padding: 6px 8px 6px 18px;
+  box-shadow: 0 8px 25px rgba(15, 23, 42, 0.06);
+  transition: all 0.3s ease;
+}
+
+.search-bar-pill:focus-within {
+  border-color: var(--accent-color);
+  box-shadow: 0 10px 30px rgba(38, 57, 68, 0.12);
+}
+
+.search-icon {
+  color: #94a3b8;
+  font-size: 1.1rem;
+  margin-right: 10px;
 }
 
 #medicine-search {
   flex: 1;
-  padding: 12px 16px;
   border: none;
-  border-radius: 10px;
-  font-size: 1rem;
   background: transparent;
-}
-
-#medicine-search:focus {
+  font-size: 1rem;
+  color: var(--text-color);
   outline: none;
+  padding: 8px 0;
 }
 
-#medicine-search-form button {
-  padding: 12px 24px;
-  border: none;
-  border-radius: 10px;
-  background: var(--primary-color);
-  color: #fff;
-  cursor: pointer;
+#medicine-search::placeholder {
+  color: #94a3b8;
+}
+
+/* 3. Embedded Lens Button */
+.lens-inline-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #f8fafc;
+  color: var(--primary-color);
+  border: 1px solid #cbd5e1;
+  border-radius: 99px;
+  padding: 8px 14px;
+  font-size: 0.85rem;
   font-weight: 600;
-  white-space: nowrap;
+  cursor: pointer;
+  margin-right: 8px;
+  transition: all 0.2s ease;
+}
+
+.lens-inline-btn:hover {
+  background: #e2e8f0;
+  border-color: #94a3b8;
+  transform: translateY(-1px);
+}
+
+/* 4. Primary Search Submit Button */
+.submit-btn {
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+  color: #ffffff;
+  border: none;
+  border-radius: 99px;
+  padding: 10px 26px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(38, 57, 68, 0.25);
+  transition: all 0.25s ease;
+}
+
+.submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(38, 57, 68, 0.35);
+}
+
+.search-warning {
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--muted-color);
+  margin-bottom: 20px;
+}
+
+
+/* =========================================================
+   LENS SCANNER CAMERA MODAL
+   ========================================================= */
+
+#lensModal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  z-index: 9999;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+#lensModal > div {
+  position: relative;
+  width: 90%;
+  max-width: 400px;
+  background: #111;
+  border-radius: 12px;
+  overflow: hidden;
+  text-align: center;
 }
 
 
@@ -620,6 +743,7 @@ a {
   transform: translateY(-3px);
 }
 
+
 /* =========================================================
    MEDICINE AUTHENTICITY CHECK
    ========================================================= */
@@ -679,8 +803,9 @@ a {
   color: var(--primary-color);
 }
 
+
 /* =========================================================
-   TABLET
+   TABLET RESPONSIVE
    ========================================================= */
 
 @media (max-width: 900px) {
@@ -704,7 +829,7 @@ a {
 
 
 /* =========================================================
-   MOBILE
+   MOBILE RESPONSIVE
    ========================================================= */
 
 @media (max-width: 768px) {
@@ -774,17 +899,33 @@ a {
     display: none;
   }
 
-  #medicine-search-form {
-    flex-direction: column;
-    align-items: stretch;
+  /* Mobile Search Bar Behavior */
+  .search-bar-pill {
+    border-radius: 20px;
+    flex-wrap: wrap;
+    padding: 12px;
+    gap: 10px;
   }
 
   #medicine-search {
     width: 100%;
+    order: 1;
   }
 
-  #medicine-search-form button {
-    width: 100%;
+  .search-icon {
+    display: none;
+  }
+
+  .lens-inline-btn {
+    order: 2;
+    flex: 1;
+    justify-content: center;
+    margin-right: 0;
+  }
+
+  .submit-btn {
+    order: 3;
+    flex: 1;
   }
 
   .footer-content {
@@ -815,41 +956,41 @@ a {
   }
 }
 
-  /* =========================================================
-    DISCLAIMER MOBILE
-    ========================================================= */
 
-  @media (max-width: 768px) {
+/* =========================================================
+   DISCLAIMER MOBILE
+   ========================================================= */
 
-    .welcome-section {
-      padding: 45px 0;
-    }
-
-    .welcome-section h2 {
-      margin-bottom: 20px;
-      font-size: 1.6rem;
-    }
-
-    .welcome-card {
-      padding: 22px 18px;
-      border-radius: 12px;
-    }
-
-    .welcome-text p {
-      font-size: 0.95rem;
-      line-height: 1.6;
-    }
-
-    .welcome-text .quote {
-      padding-left: 12px;
-      font-size: 1rem;
-    }
-
-    .welcome-text p:last-child {
-      padding-top: 15px;
-    }
-
+@media (max-width: 768px) {
+  .welcome-section {
+    padding: 45px 0;
   }
+
+  .welcome-section h2 {
+    margin-bottom: 20px;
+    font-size: 1.6rem;
+  }
+
+  .welcome-card {
+    padding: 22px 18px;
+    border-radius: 12px;
+  }
+
+  .welcome-text p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  .welcome-text .quote {
+    padding-left: 12px;
+    font-size: 1rem;
+  }
+
+  .welcome-text p:last-child {
+    padding-top: 15px;
+  }
+}
+
 
 /* =========================================================
    SMALL MOBILE
